@@ -39,66 +39,49 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 
-void testdrawstyles(void) {
-  display.clearDisplay();
 
-  display.setTextSize(1);             // Normal 1:1 pixel scale
-  display.setTextColor(SSD1306_WHITE);        // Draw white text
-  display.setCursor(0,8);             // Start at top-left corner
-  display.println(F("Hello, world!"));
-Serial.println(F("----------"));  
-Serial.println(F("Hello, world!"));
-Serial.println(F("----------"));  
-  display.setTextColor(SSD1306_BLACK, SSD1306_WHITE); // Draw 'inverse' text
-  display.println(2);
-  display.println(3);
 
-  display.display();
-  delay(5000);
+
+void Display_String(String _the_string,int _x,int _y,int _size,int _show)
+{
+   display.setTextSize(_size);       
+   if ((_show == 1)) {display.setTextColor(SSD1306_WHITE);}
+   else display.setTextColor(SSD1306_BLACK);
+   display.setCursor(_x, _y);
+   display.print(_the_string);
+   display.display();
 }
 
+  int i=0;
+  String string_2 = "";
+  String old_string = "";
 
-String string_1 = "Hello";
-String string_2 = "Arduino";
-String string_3 = "";
-
-void myFunction(String the_string) {
-
-    display.println(the_string);
-  
-  display.display();
-}
-
-
-void setup() {
+void setup() 
+{
   Serial.begin(9600);
-
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
-  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) 
+  {
     Serial.println(F("SSD1306 allocation failed"));
     for(;;); // Don't proceed, loop forever
   }
-
   display.clearDisplay(); // Clear display buffer
   display.display();
-
-testdrawstyles();
-  delay(1000);
-
-
-  myFunction(string_1); // pass via a pointer
-  myFunction(string_2); // pass via a pointer
-  myFunction(string_3); // pass via a pointer
-
-
-string_2 = "xxxx";
-
-  myFunction(string_2); // pass via a pointer
 }
 
 
 
 void loop() {
+  i=i+1;
+  string_2 = String(i);  
+
+//---------------------------------------------------------------------
+  Display_String(old_string,40,16,3,0); // pass string, x, y, size, 0=clear
+  Display_String(string_2,40,16,3,1); // pass string, x, y, size, 1=white
+  old_string=string_2;
+//---------------------------------------------------------------------
+
+  delay(1000);
 
 
 }
