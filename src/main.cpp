@@ -76,8 +76,8 @@ void loop() {
   string_2 = String(i);  
 
 //---------------------------------------------------------------------
-  Display_String(old_string,40,16,3,0); // pass string, x, y, size, 0=clear
-  Display_String(string_2,40,16,3,1); // pass string, x, y, size, 1=white
+  Display_String(old_string,0,16,3,0); // pass string, x, y, size, 0=clear
+  Display_String(string_2,0,16,3,1); // pass string, x, y, size, 1=white
   old_string=string_2;
 //---------------------------------------------------------------------
 
